@@ -1,28 +1,67 @@
-function Update_Scores () {
+input.onButtonPressed(Button.A, function () {
+    basic.showLeds(`
+        . . # . .
+        . # . # .
+        # . . . #
+        # # # # #
+        # . . . #
+        `)
+    Rounds += 1
+    P1 += 1
+    scores()
+    basic.clearScreen()
+})
+input.onButtonPressed(Button.AB, function () {
+    basic.showLeds(`
+        # # # # #
+        . . # . .
+        . . # . .
+        . . # . .
+        . . # . .
+        `)
+    Ties += 1
+    Rounds += 1
+    scores()
+    basic.clearScreen()
+})
+input.onButtonPressed(Button.B, function () {
+    basic.showLeds(`
+        # # # . .
+        # . . # .
+        # # # . .
+        # . . # .
+        # # # # .
+        `)
+    P2 += 1
+    Rounds += 1
+    scores()
+    basic.clearScreen()
+})
+input.onGesture(Gesture.Shake, function () {
+    reset()
+})
+function scores () {
+    OLED.clear()
+    OLED.writeStringNewLine("player 1: " + P1)
+    OLED.newLine()
+    OLED.writeStringNewLine("player 2: " + P2)
+    OLED.newLine()
+    OLED.writeStringNewLine("Ties:" + Ties)
+    OLED.newLine()
+    OLED.writeStringNewLine("Rounds: " + Rounds)
+}
+function reset () {
     OLED.init(128, 64)
-    OLED.writeStringNewLine("")
+    OLED.writeStringNewLine("you ARE BEFORE THE FOUNDING FATHERS PREPARE TO DIE")
     P1 = 0
     P2 = 0
     Ties = 0
     Rounds = 0
     basic.pause(2000)
-    Update_Scores()
+    scores()
 }
-input.onGesture(Gesture.Shake, function () {
-    Update_Scores()
-})
-function Update_Scores2 () {
-    OLED.clear()
-    OLED.writeStringNewLine("Player 1: " + P1)
-    OLED.newLine()
-    OLED.writeStringNewLine("Player 2: " + P2)
-    OLED.newLine()
-    OLED.writeStringNewLine("Ties: " + Ties)
-    OLED.newLine()
-    OLED.writeStringNewLine("Rounds: " + Rounds)
-}
-let Rounds = 0
-let Ties = 0
 let P2 = 0
+let Ties = 0
 let P1 = 0
-Update_Scores()
+let Rounds = 0
+reset()
